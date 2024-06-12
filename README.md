@@ -4,6 +4,8 @@
 
 传输控制器&分析仪购买链接：https://m.tb.cn/h.g4sKEcOnkEoye4m?tk=o3wOWCqHrlL
 
+![](./image/ros2_multi-protocol_board.png)
+
 - 配套下载工具：[配置助手](https://github.com/fishros/fishbot_tool)可以快速下载固件到控制板
 - 配套软件：https://github.com/fishros/fishros_can_debuger
 - 固件发布页面：https://github.com/fishros/fishros_can_debug_driver/releases
