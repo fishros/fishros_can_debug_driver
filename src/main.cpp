@@ -62,7 +62,6 @@ void setup()
   Serial.setRxBufferSize(4096);
   Serial.setTxBufferSize(4096);
   Serial.begin(1500000);
-  // Serial.begin(115200);
   botlog_set_target(Serial);
   SystemConfig.init();
   button.attachDoubleClick(buttonDoubleClick);
@@ -71,7 +70,7 @@ void setup()
   digitalWrite(2, LOW);
   digitalWrite(2, HIGH);
   delay(10);
-
+  
   ESP32Can.setPins(4, 5);
   ESP32Can.setSpeed(ESP32Can.convertSpeed(SystemConfig.get_config_can_rate()));
   ESP32Can.setRxQueueSize(5);

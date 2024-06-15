@@ -22,7 +22,6 @@ static FrameSetCANRate frameSetCanRate;
 static CanFrame rxFrame,txFrame;
 static FrameCAN frameRx,frameTx;
 FrameCANInfoReport frameCanReport;
-
 void checkDealFrame(char *buff, uint16_t len)
 {
     int dlen = inverse_escape_frame((uint8_t *)buff, (uint8_t *)decodeBuff, len);
@@ -37,13 +36,18 @@ void checkDealFrame(char *buff, uint16_t len)
             if(canrate!=frameSetCanRate.can_rate)
             {
                 SystemConfig.config("can_rate",String(frameSetCanRate.can_rate));
+                canrate = frameSetCanRate.can_rate;
                 delay(10);
                 ESP32Can.end();
                 ESP32Can.setSpeed(ESP32Can.convertSpeed(frameSetCanRate.can_rate));
+                gpio_reset_pin((gpio_num_t)4);
+                gpio_reset_pin((gpio_num_t)5);
+                twai_initiate_recovery();
                 ESP32Can.setPins(4, 5);
                 ESP32Can.setRxQueueSize(5);
                 ESP32Can.setTxQueueSize(5);
                 ESP32Can.begin();
+                twai_initiate_recovery();
             }
         }
         else if(fid==0x02)
@@ -126,7 +130,7 @@ void can_debug_task(void* param)
         if(Serial.available()){
             dealFrame(Serial.available());
         }
-
+        
         RUN_EVERY(1000,{
             if(ESP32Can.readStatus(&frameCanReport.status)){
                 if(canrate==0){
