@@ -22,7 +22,7 @@
 #include "inttypes.h"
 #endif
 #include "driver/twai.h"
-
+#include "botlog.h"
 
 // Uncomment or declare before importing header
 //#define LOG_TWAI log_e
@@ -30,30 +30,21 @@
 //#define LOG_TWAI_RX log_e
 
 #ifndef LOG_TWAI
-#define LOG_TWAI
+#define LOG_TWAI 
 #endif
 
 #ifndef LOG_TWAI_TX
-#define LOG_TWAI_TX
+#define LOG_TWAI_TX 
 #endif
 
 #ifndef LOG_TWAI_RX
-#define LOG_TWAI_RX
+#define LOG_TWAI_RX 
 #endif
 
 typedef twai_message_t CanFrame;
 
 enum TwaiSpeed : uint8_t {
-    #if (SOC_TWAI_BRP_MAX > 256)
-    TWAI_SPEED_1KBPS,
-    TWAI_SPEED_5KBPS,
-    TWAI_SPEED_10KBPS,
-    #endif
-    #if (SOC_TWAI_BRP_MAX > 128) || (CONFIG_ESP32_REV_MIN_FULL >= 200)
-    TWAI_SPEED_12_5KBPS,
-    TWAI_SPEED_16KBPS,
-    TWAI_SPEED_20KBPS,
-    #endif
+    TWAI_SPEED_50KBPS,
     TWAI_SPEED_100KBPS,
     TWAI_SPEED_125KBPS,
     TWAI_SPEED_250KBPS,
@@ -66,7 +57,7 @@ enum TwaiSpeed : uint8_t {
 class TwaiCAN {
  public:
     TwaiCAN() {}
-
+    void restart();
     // Call before begin!
     void setSpeed(TwaiSpeed);
     TwaiSpeed getSpeed() { return speed; };

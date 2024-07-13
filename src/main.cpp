@@ -5,7 +5,7 @@
 #include "robot_config.h"
 #include "can_debug/can_debug.h"
 
-#include "soc/rtc_wdt.h" //设置看门狗用
+#include "rtc_wdt.h" //设置看门狗用
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 
